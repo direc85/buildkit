@@ -21,13 +21,12 @@ Release:        1
 Summary:        Toolkit for converting source code to build artifacts
 License:        Apache-2.0
 URL:            https://github.com/moby/buildkit
-Source:         %{name}-%{version}.tar.zst
-Source1:        vendor.tar.zst
+Source:         %{name}-%{version}.tar.gz
+Source1:        vendor.tar.gz
 Source2:        buildkit.service
 BuildRequires:  containerd
 BuildRequires:  runc
 BuildRequires:  pkgconfig(systemd)
-BuildRequires:  zstd
 #BuildRequires:  golang(API) >= 1.13
 BuildRequires:  golang(API) >= 1.23
 Requires:       containerd
