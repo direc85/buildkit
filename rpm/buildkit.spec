@@ -51,17 +51,14 @@ install -m 0755 _output/buildctl %{buildroot}%{_bindir}/buildctl
 install -m 0644 %{SOURCE2} %{buildroot}%{_unitdir}/buildkit.service
 install -m 0644 examples/systemd/system/buildkit.socket %{buildroot}%{_unitdir}/buildkit.socket
 
-%pre
-%service_add_pre buildkit.socket buildkit.service
-
 %post
-%service_add_post buildkit.socket buildkit.service
+%systemd_post buildkit.socket buildkit.service
 
 %preun
-%service_del_preun buildkit.socket buildkit.service
+%systemd_preun buildkit.socket buildkit.service
 
 %postun
-%service_del_postun buildkit.socket buildkit.service
+%systemd_postun buildkit.socket buildkit.service
 
 %files
 %license LICENSE
