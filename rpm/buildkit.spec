@@ -12,19 +12,12 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via https://bugs.opensuse.org/
-#
 
-
-%global provider        github
-%global provider_tld    com
-%global project         moby
-%global repo            buildkit
-%global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
+%global provider_prefix github.com/moby/buildkit
 %global import_path     %{provider_prefix}
 Name:           buildkit
-Version:        0.16.0
-Release:        0
+Version:        0.18.2
+Release:        1
 Summary:        Toolkit for converting source code to build artifacts
 License:        Apache-2.0
 URL:            https://github.com/moby/buildkit
@@ -33,9 +26,10 @@ Source1:        vendor.tar.zst
 Source2:        buildkit.service
 BuildRequires:  containerd
 BuildRequires:  runc
-BuildRequires:  systemd-rpm-macros
+BuildRequires:  pkgconfig(systemd)
 BuildRequires:  zstd
-BuildRequires:  golang(API) >= 1.13
+#BuildRequires:  golang(API) >= 1.13
+BuildRequires:  golang(API) >= 1.23
 Requires:       containerd
 Requires:       runc
 
@@ -43,7 +37,7 @@ Requires:       runc
 BuildKit is a toolkit for converting source code to build artifacts in an efficient, expressive and repeatable manner.
 
 %prep
-%setup -qa1
+%autosetup -a1 -n %{name}-%{version}/%{name}
 
 %build
 go build -mod=vendor -buildmode=pie -ldflags '-X %{import_path}/version.Version=%{version}' -o _output/buildkitd %{provider_prefix}/cmd/buildkitd
