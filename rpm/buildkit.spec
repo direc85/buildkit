@@ -16,7 +16,7 @@
 %global provider_prefix github.com/moby/buildkit
 %global import_path     %{provider_prefix}
 Name:           buildkit
-Version:        0.18.2
+Version:        0.19.0
 Release:        1
 Summary:        Toolkit for converting source code to build artifacts
 License:        Apache-2.0
@@ -39,6 +39,7 @@ BuildKit is a toolkit for converting source code to build artifacts in an effici
 %autosetup -a1 -n %{name}-%{version}/%{name}
 
 %build
+export GOFLAGS=-buildvcs=false
 go build -mod=vendor -buildmode=pie -ldflags '-X %{import_path}/version.Version=%{version}' -o _output/buildkitd %{provider_prefix}/cmd/buildkitd
 go build -mod=vendor -buildmode=pie -ldflags '-X %{import_path}/version.Version=%{version}' -o _output/buildctl %{provider_prefix}/cmd/buildctl
 
